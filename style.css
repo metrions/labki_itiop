@@ -1,0 +1,48 @@
+
+
+.otstup{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+
+
+#first{
+    left: 20px;
+}
+
+.numb{
+    width: 10px;
+    height: 40px;
+    border:0px;
+}
+
+.form-contr{
+    border: 0;
+}
+
+.upper{
+    position: relative;
+    bottom: 20px;
+}
+
+.ind{
+    width: 10px;
+    height: 20px;
+    position: relative;
+    left: 200px;
+    top: 1px;
+
+}
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.answ{
+    width: 200px;
+}

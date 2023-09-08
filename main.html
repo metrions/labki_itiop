@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Лабка первая</title>
+        <meta charset="utf-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <form method="post"  onsubmit="return false">
+            <div class="form-row otstup">
+                <div class = "row">
+                    <div class = "col-2">
+                        <input type="text" class="form-control " id="first" name="first">
+                    </div>
+
+                    <div class = "col-1">
+                        <input list="op" type="text" class="form-control" id="operation" name="operation">
+                    </div>
+
+                    <div class = "col-2">
+                        <input type="text" class="form-control" id="second" name="second">
+                    </div>
+                    
+                    <div class = "col-1">
+                        <button class="form-control upper" onclick="foo1()">=</button>
+                        <input type="number" class="form-control upper" id="degree" name="degree">
+                        
+                    </div>
+
+                    <div class = "col-1">
+                        <input type="text" class="form-control score answ" id="answer" name="first" readonly>
+                        <input type="number" class="form-control upper index ind" id="degree_out" name="degree_out">
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <script>
+
+            function foo1(){
+                const inputElement = document.querySelector('#answer');
+                let a = document.querySelector("input[name='first']").value;
+                let b = document.querySelector("input[name='second']").value;
+                let c = document.querySelector("input[name='degree']").value;
+                
+                if (document.querySelector("input[name='operation']").value == "+"){
+                    inputElement.value = sum(a, b, c);
+                }
+                else{
+                    inputElement.value = multi(a, b, c);
+                }
+            }
+
+            
+
+            function foo1(){
+                const inputElement = document.querySelector('#answer');
+                let a = document.querySelector("input[name='first']").value;
+                let b = document.querySelector("input[name='second']").value;
+                let c = document.querySelector("input[name='degree']").value;
+                
+                if (document.querySelector("input[name='operation']").value == "+"){
+                    inputElement.value = sum(a, b, c);
+                }
+                else{
+                    inputElement.value = multi(a, b, c);
+                }
+            }
+
+            //var gVar = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+            function sum(a, b, c){
+                let answer = "";
+                let nd = 0;
+                let g = a;
+                let q = b;
+                let indsep = -1;
+
+                //логика приведения 2 чисел к одному виду
+                if (a.indexOf(",") == -1){
+                    a = a + "," + "0";
+                }
+                if (b.indexOf(",") == -1){
+                    b = b + "," + "0";
+                }
+                //добавление нулей справа
+                if (a.length - a.indexOf(",") > b.length - b.indexOf(",")){
+                    b = b + "0".repeat(a.length - a.indexOf(",") - (b.length - b.indexOf(",")));
+                }
+                else{
+                    a = a + "0".repeat(b.length - b.indexOf(",") - (a.length - a.indexOf(",")));
+                }
+
+                //добавление нулей слева
+                if (a.indexOf(",") > b.indexOf(",")){
+                    b = "0".repeat(a.indexOf(",") - b.indexOf(",")) + b;
+                }
+                else{
+                    a = "0".repeat(b.indexOf(",") - a.indexOf(",")) + a;
+                }
+
+                indsep = a.length - a.indexOf(",") - 1;
+                a = a.replace(",", "");
+                b = b.replace(",", "");
+
+
+                a = a.replace(",", "");
+                b = b.replace(",", "");
+
+
+                let gVar = "0123456789ABCDEF";
+                for (let i=Math.max(a.length-1, b.length-1); i>=0; i--){
+                    g = gVar.indexOf(a[i]);
+                    q = gVar.indexOf(b[i]);
+                    console.log(a[i]);
+                    answer = gVar[(parseInt(g) +parseInt(q)+gVar.indexOf(nd))%parseInt(c)]+ answer;
+                    nd = Math.floor((parseInt(g) +parseInt(q)+gVar.indexOf(nd))/parseInt(c));
+                }
+                if (parseInt(nd) != 0) answer = gVar[nd] + answer;
+    
+                //console.log(answer);
+                if (indsep == -1) return answer;
+                else{
+                    return answer.substring(0, answer.length-indsep) + "," + answer.substring(answer.length-indsep);
+                }
+            }
+
+            function difference(a, b, c){
+                let answer = "";
+                let nd = 0;
+                let g = a;
+                let q = b;
+                let indsep = -1;
+
+                //логика приведения 2 чисел к одному виду
+                if (a.indexOf(",") == -1){
+                    a = a + "," + "0";
+                }
+                if (b.indexOf(",") == -1){
+                    b = b + "," + "0";
+                }
+                //добавление нулей справа
+                if (a.length - a.indexOf(",") > b.length - b.indexOf(",")){
+                    b = b + "0".repeat(a.length - a.indexOf(",") - (b.length - b.indexOf(",")));
+                }
+                else{
+                    a = a + "0".repeat(b.length - b.indexOf(",") - (a.length - a.indexOf(",")));
+                }
+
+                //добавление нулей слева
+                if (a.indexOf(",") > b.indexOf(",")){
+                    b = "0".repeat(a.indexOf(",") - b.indexOf(",")) + b;
+                }
+                else{
+                    a = "0".repeat(b.indexOf(",") - a.indexOf(",")) + a;
+                }
+
+                indsep = a.length - a.indexOf(",") - 1;
+                a = a.replace(",", "");
+                b = b.replace(",", "");
+
+
+                a = a.replace(",", "");
+                b = b.replace(",", "");
+                console.log(a + " " + b);
+
+
+                let gVar = "0123456789ABCDEF";
+                for (let i=Math.max(a.length-1, b.length-1); i>=0; i--){
+                    g = gVar.indexOf(a[i]);
+                    q = gVar.indexOf(b[i]);
+                    
+                    answer = (parseInt(g) -parseInt(q)-gVar.indexOf(nd))%parseInt(c)+ answer;
+                    nd = (-1) * Math.floor((parseInt(g)-parseInt(q)-gVar.indexOf(nd))/parseInt(c));
+                }
+                if (parseInt(nd) != 0) answer = nd + answer;
+    
+                console.log(answer);
+                if (indsep == -1) return answer;
+                else{
+                    return answer.substring(0, answer.length-indsep) + "," + answer.substring(answer.length-indsep);
+                }
+            }
+
+            function multi(a, b, c){
+                let answer = "";
+                let nd = 0;
+                let g = a;
+                let q = b;
+                let gVar = "0123456789ABCDEF";
+                let vr = [];
+                let sch = 0;
+
+                let indsep = -1;
+
+                if (a.indexOf(",") == -1){
+                    a = a + "," + "0";
+                }
+                if (b.indexOf(",") == -1){
+                    b = b + "," + "0";
+                }
+                //добавление нулей справа
+                if (a.length - a.indexOf(",") > b.length - b.indexOf(",")){
+                    b = b + "0".repeat(a.length - a.indexOf(",") - (b.length - b.indexOf(",")));
+                }
+                else{
+                    a = a + "0".repeat(b.length - b.indexOf(",") - (a.length - a.indexOf(",")));
+                }
+
+                //добавление нулей слева
+                if (a.indexOf(",") > b.indexOf(",")){
+                    b = "0".repeat(a.indexOf(",") - b.indexOf(",")) + b;
+                }
+                else{
+                    a = "0".repeat(b.indexOf(",") - a.indexOf(",")) + a;
+                }
+
+                indsep = a.length - a.indexOf(",") - 1;
+                a = a.replace(",", "");
+                b = b.replace(",", "");
+                console.log(a + " " + b);
+
+                
+
+                for (let i=a.length-1; i>=0; i--){
+                    nd = 0;
+                    q = "";
+                    for (let j=b.length-1; j>=0; j--){
+                        q = gVar[(gVar.indexOf(a[i]) *gVar.indexOf(b[j])+nd)%parseInt(c)]+ q;
+                        nd = Math.floor((gVar.indexOf(a[i]) *gVar.indexOf(b[j])+nd)/parseInt(c));
+                    }
+                    if (nd != 0) q = gVar[nd] + q;
+                    q = q + "0".repeat(sch);
+                    vr.push((q).substring(0, q.length-indsep*2) + "," + (q).substring(q.length-indsep*2));
+                    sch++;
+                }
+                answer = vr[0];
+                console.log(6 + 2);
+                for (let i=1; i<vr.length; i++){
+                    console.log(vr[i]);
+                    answer = sum(answer, vr[i], c);
+                }
+                return answer;
+
+            }
+
+        
+
+        </script>
+    </body>
+</html>
