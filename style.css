@@ -2,7 +2,7 @@
 
 .otstup{
     position: absolute;
-    top: 50px;
+    top: 200px;
     left: 50px;
 }
 
@@ -27,15 +27,29 @@
     bottom: 20px;
 }
 
+.equal{
+    width: 40px;
+}
+
 .ind{
-    width: 10px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     position: relative;
     left: 200px;
     top: 1px;
-
+    box-sizing: border-box;
+    padding: 0px;
 }
 
+.sdwig{
+    position: relative;
+    left: 10%;
+}
+
+
+.text_for_degree{
+    font-size:2px;
+}
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -45,4 +59,12 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .answ{
     width: 200px;
+}
+
+.navbar-dark{
+    color: "red";
+}
+
+.navig_text{
+    color: "white";
 }
