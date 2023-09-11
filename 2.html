@@ -8,7 +8,7 @@
     </head>
     <body>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Лабки Итиоп</a>
+        <a class="navbar-brand" href="main.html">Лабки Итиоп</a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
@@ -27,7 +27,154 @@
         </div>
       </nav>
 
-      
+      <form method="post"  onsubmit="return false">
+        <div class="form-row otstup">
+            <div class = "row">
+                <div class = "col-6">
+                    <input type="text" class="form-control answ" id="num_f_t" name="num_f_t">
+                    <div class = "col-2"><input type="text" class="form-control ind asind" id="degree_f_t" name="degree_f_t"></div>
+                </div>
 
+                <div class="col-2">
+                    <button class="form-control equal sdwig" onclick="foo3()">=</button>
+                </div>
+
+                <div class = "col-3">
+                    <input type="text" class="form-control answ" id="answer_2" name="answer_2" readonly>
+                    <div class = "col-1"><input type="text" class="form-control ind asind" id="degree_s_t" name="degree_s_t" value="2-10" readonly></div>
+                </div>
+            </div>
+            <div class = "row ot">
+              <div class = "col-6">
+                  <input type="text" class="form-control answ" id="numka" name="numka">
+              </div>
+
+              <div class="col-2">
+                  <button class="form-control equal sdwig" id="equal" onclick="foo4()">=</button>
+              </div>
+
+              <div class = "col-3">
+                  <input type="text" class="form-control answ" id="answer_numka_pr" name="answer_numka_pr" value="прямой" readonly>
+                  <input type="text" class="form-control answ" id="answer_numka_dop" name="answer_numka_dop" value="дополнительный" readonly>
+              </div>
+          </div>
+        </div>
+
+    </form>
+      
+      <script>
+        var d = {
+          "1" : "0001",
+          "2" : "0010",
+          "3" : "0011",
+          "4" : "0100",
+          "5" : "0101",
+          "6" : "0110",
+          "7" : "0111",
+          "8" : "1000",
+          "9" : "1001"
+        };
+
+
+        function foo3(){
+                const inputElement = document.querySelector('#answer_2');
+                const degree = document.querySelector('#degree_s_t');
+                let a = document.querySelector("input[name='num_f_t']").value;
+                let b = document.querySelector("input[name='degree_f_t']").value;
+                switch (b){
+                  case "10":
+                    inputElement.value = trans(a);
+                    degree.value = "2-10";
+                    break;
+                  case "2-10":
+                    inputElement.value = reverse_trans(a);
+                    degree.value = "10";
+                    break;
+                  case "str":
+                    inputElement.value = to_ascii(a);
+                    degree.value = "ascii";
+                    break;
+                  case "ascii":
+                    inputElement.value = to_str_form_ascii(a);
+                    degree.value = "str";
+                    break;
+                }
+            }
+
+        function trans(a){
+          let answer = "";
+          let c = a.toString();
+          for (let i=c.length-1; i>=0; i--){
+              answer = d[c[i]]+ answer;
+              console.log("AAAA");
+          }
+          return answer;
+        }
+
+        var d_r = {
+          "0001" : "1",
+          "0010" : "2",
+          "0011" : "3",
+          "0100" : "4",
+          "0101" : "5",
+          "0110" : "6",
+          "0111" : "7",
+          "1000" : "8",
+          "1001" : "9"
+        };
+
+        function reverse_trans(a){
+          let c = "";
+          for (let i=a.length-1; i>=0; i=i-4){
+            let str = "" + a[i-3].toString() + a[i-2] + a[i-1] + a[i];
+            c = d_r[str] + c;
+          }
+          return c;
+        }
+
+        function to_ascii(a){
+          let answer = "";
+          for (let i=0; i<a.length; i++){
+            answer = answer + (a[i].charCodeAt(0)-848) + " ";
+          }
+          console.log(answer);
+          return answer;
+        }
+
+        function to_str_form_ascii(a){
+          let b = a.split(" ");
+          let answer = "";
+          for (let i=0; i<b.length; i++){
+            answer = answer + String.fromCharCode(parseInt(b[i])+848);
+          }
+          console.log(answer);
+          return answer;
+        }
+
+      </script>
+
+      <script>
+        function foo4(){
+          const numka_pr = document.querySelector('#answer_numka_pr');
+          const numka_dop = document.querySelector('#answer_numka_dop');
+          let a = document.querySelector("input[name='numka']").value;
+          numka_pr.value = trans_pr(a);
+        }
+
+        function trans_pr(a){
+          let s = ["0", "0", "0", "0", "0", "0", "0", "0"];
+          s[0] = (a>= 0) ? "0" : "1";
+          a = Math.abs(a);
+          let i = 1;
+          while (a != 0){
+            let deq = Math.pow(2, 8-i);
+            console.log(a);
+            s[i] = (a - deq >= 0) ? "1" : "0";
+            a =  (a - deq >= 0) ? (a - deq) : a;
+            i++;
+          }
+          return s.join("");
+        }
+      </script>
     </body>
 </html>

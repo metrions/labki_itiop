@@ -75,6 +75,7 @@
         </form>
         <script>
 
+            var gVar = "0123456789ABCDEF";
             function foo1(){answer_2
                 const inputElement = document.querySelector('#answer');
                 let a = document.querySelector("input[name='first']").value;
@@ -128,7 +129,6 @@
 
 
             function sravn(a, b){
-                let gVar = "0123456789ABCDEF";
                 for (let i=0; i<a.length; i++){
                     if (gVar.indexOf(a[i]) > gVar.indexOf(b[i])) return 1;
                     else if (gVar.indexOf(a[i]) == gVar.indexOf(b[i])) continue;
@@ -191,7 +191,6 @@
                 }
                 
 
-                let gVar = "0123456789ABCDEF";
                 for (let i=Math.max(a.length-1, b.length-1); i>=0; i--){
                     g = gVar.indexOf(a[i]);
                     q = gVar.indexOf(b[i]);
@@ -212,7 +211,6 @@
                 let nd = 0;
                 let g = a;
                 let q = b;
-                let gVar = "0123456789ABCDEF";
                 let vr = [];
                 let sch = 0;
 
