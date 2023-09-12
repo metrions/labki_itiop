@@ -29,14 +29,15 @@
 
       <form method="post"  onsubmit="return false">
         <div class="form-row otstup">
-            <div class = "row">
+        
+            <div class = "row ">
                 <div class = "col-6">
                     <input type="text" class="form-control answ" id="num_f_t" name="num_f_t">
                     <div class = "col-2"><input type="text" class="form-control ind asind" id="degree_f_t" name="degree_f_t"></div>
                 </div>
 
                 <div class="col-2">
-                    <button class="form-control equal sdwig" onclick="foo3()">=</button>
+                    <button class="form-control equal" onclick="foo3()">=</button>
                 </div>
 
                 <div class = "col-3">
@@ -44,13 +45,13 @@
                     <div class = "col-1"><input type="text" class="form-control ind asind" id="degree_s_t" name="degree_s_t" value="2-10" readonly></div>
                 </div>
             </div>
-            <div class = "row ot">
+            <div class = "row otst">
               <div class = "col-6">
                   <input type="text" class="form-control answ" id="numka" name="numka">
               </div>
 
               <div class="col-2">
-                  <button class="form-control equal sdwig" id="equal" onclick="foo4()">=</button>
+                  <button class="form-control equal" id="equal" onclick="foo4()">=</button>
               </div>
 
               <div class = "col-3">
@@ -58,10 +59,55 @@
                   <input type="text" class="form-control answ" id="answer_numka_dop" name="answer_numka_dop" value="дополнительный" readonly>
               </div>
           </div>
+          
+          <div class = "row otst_dop">
+            <div class = "col-6">
+                <input type="text" class="form-control answ" id="numka_2" name="numka_2">
+            </div>
+            <div class="col-2">
+                <button class="form-control equal" onclick="foo5()">=</button>
+            </div>
+
+            <div class = "col-3">
+                <input type="text" class="form-control answ" id="answ_dop" name="answ_dop" value="код" readonly>
+            </div>
+        </div>
+
+          <div class = "row ot ot1">
+            <div class = "col-6">
+                <input type="text" class="form-control answ otstup_2" id="num_for" name="num_for">
+            </div>
+
+            <div class="col-1">
+                <button class="form-control equal otstup_2" id="eq" onclick="foo6()">=</button>
+            </div>
+
+            <div class = "col-3">
+                <input type="text" class="form-control answ2" id="x_16" name="x_16" value="шестнадцатеричное">
+                <input type="text" class="form-control answ2" id="x_64" name="x_64" value="четырехбайтное">
+                <input type="text" class="form-control answ2" id="x_128" name="x_128" value="восьмибайтное">
+            </div>
+        </div>
+        <div class = "row otstup_3">
+          <div class = "col-6">
+              <input type="text" class="form-control" id="num_3" name="num_3">
+              <div class = "col-2"><input type="text" class="form-control ind asind" id="deg_3" name="deg_3"></div>
+          </div>
+
+          <div class="col-2">
+              <button class="form-control equal" id="eq_3" onclick="foo7()">=</button>
+          </div>
+
+          <div class = "col-3">
+              <input type="text" class="form-control answ" id="answer_3" name="answer_3" readonly>
+              <div class = "col-1"><input type="text" class="form-control ind asind" id="deg_3_s" name="deg_3_s" value="10" readonly></div>
+          </div>
+      </div>
         </div>
 
     </form>
       
+      <!-- перевод -->
       <script>
         var d = {
           "1" : "0001",
@@ -159,6 +205,7 @@
           const numka_dop = document.querySelector('#answer_numka_dop');
           let a = document.querySelector("input[name='numka']").value;
           numka_pr.value = trans_pr(a);
+          numka_dop.value = trans_dop_1(a);
         }
 
         function trans_pr(a){
@@ -167,13 +214,179 @@
           a = Math.abs(a);
           let i = 1;
           while (a != 0){
-            let deq = Math.pow(2, 8-i);
+            let deq = Math.pow(2, 8-i-1);
             console.log(a);
             s[i] = (a - deq >= 0) ? "1" : "0";
             a =  (a - deq >= 0) ? (a - deq) : a;
             i++;
           }
           return s.join("");
+        }
+
+        function trans_dop_1(a){
+          let s = ["0", "0", "0", "0", "0", "0", "0", "0"];
+          s[0] = (a>= 0) ? "0" : "1";
+          a = Math.abs(a);
+          let i = 0;
+          if (s[0] == "0"){
+            while (a != 0){
+              let deq = Math.pow(2, 8-i-1);
+              console.log(a);
+              s[i] = (a - deq >= 0) ? "1" : "0";
+              a =  (a - deq >= 0) ? (a - deq) : a;
+              i++;
+            }
+          }
+          else{
+            s[0] = "0";
+            while (i != 8){
+              let deq = Math.pow(2, 8-i-1);
+              s[i] = (a - deq < 0) ? "1" : "0";
+              a =  (a - deq >= 0) ? (a - deq) : a;
+              i++;
+            }
+            j = 7;
+            while (j != 0){
+              if (s[j] == "0") {
+                s[j] = "1";
+                break;}
+              else{
+                s[j] = "0";
+                j--;
+              }
+            }
+          }
+          return s.join("");
+        }
+      </script>
+
+
+      <!--перевод из доп в обычный-->
+      <script>
+        function foo5(){
+          const dop = document.querySelector('#answ_dop');
+          let a = document.querySelector("input[name='numka_2']").value;
+          dop.value = trans_dop_2(a);
+        }
+
+        function trans_dop_2(a){
+          let q = 0;
+          if (a[0] == "1"){
+            for (let i = a.length-1; i>=0; i--){
+              console.log(q);
+              q = (a[i] == "0") ? (q + Math.pow(2, 16-i-1)) : q;
+            }
+          }
+          else{
+            for (let i = a.length-1; i>=0; i--){
+              console.log(q);
+              q = (a[i] == "1") ? (q + Math.pow(2, 16-i-2)) : q;
+            }
+          }
+          return (a[0] == "1") ? (-1)*(q+1) : q;
+        }
+      </script>
+      
+      <!--перевод в представления 16 64-->
+      <script>
+        function foo6(){
+          const x_16 = document.querySelector('#x_16');
+          const x_64 = document.querySelector('#x_64');
+          const x_128 = document.querySelector('#x_128');
+          let a = document.querySelector("input[name='num_for']").value;
+          let t = trans_bin(a);
+          x_64.value = trans_64(trans_bin(a));
+          x_16.value = trans_16(trans_bin(a));
+          x_128.value = trans_128(trans_bin(a));
+        } 
+
+        function trans_bin(a){
+          let k = "0";
+          a = a.toString();
+          if (a[0] == "-"){
+            a = a.substring(1);
+            k = "1";
+          }
+          if (a.indexOf(",") != -1){
+            let a_nez = parseFloat("0." + a.substring(a.indexOf(",")+1));
+            let a_z = parseInt(a.substring(0, a.indexOf(",")));
+            let z_2 = "";
+            let nez_2 = "";
+            while (a_z != 0){
+              z_2 = a_z % 2 + z_2;
+              a_z = Math.floor(a_z/2);
+            }
+            for (let i=0; i<130 && a_nez != 0.0; i++){
+              nez_2 = nez_2 + Math.floor(a_nez * 2 / 1);
+              a_nez = a_nez * 2 - Math.floor(a_nez * 2 / 1);
+            }
+            return k + z_2 + "," + nez_2;
+          }
+          else{
+            let z_2 = "";
+            while (a != 0){
+              z_2 = a % 2 + z_2;
+              a = Math.floor(a/2);
+            }
+            return k + z_2;
+          }
+        }
+
+        function trans_16(a){
+          let k = (a.indexOf(",") != -1) ? a.indexOf(",") - 2 : a.length-1;
+          console.log(k);
+          let pc = k + (Math.pow(2, 4) - 1);
+          let q = (a[0] == "1") ? -1 : 1;
+          console.log(trans_bin(pc).substring(1));
+          let answer = trans_bin(q * pc) + " " + a.substring(2, a.indexOf(",")) + a.substring(a.indexOf(",")+1);
+          return answer.substring(0, 16);
+        }
+        function trans_64(a){
+          let k = (a.indexOf(",") != -1) ? a.indexOf(",") - 2 : a.length-1;
+          console.log(k);
+          let pc = k + (Math.pow(2, 10) - 1);
+          let q = (a[0] == "1") ? -1 : 1;
+          console.log(trans_bin(pc).substring(1));
+          let answer = trans_bin(q * pc) + " " + a.substring(2, a.indexOf(",")) + a.substring(a.indexOf(",")+1);
+          return answer.substring(0, 64);
+        }
+        function trans_128(a){
+          let k = (a.indexOf(",") != -1) ? a.indexOf(",") - 2 : a.length-1;
+          console.log(k);
+          let pc = k + (Math.pow(2, 14) - 1);
+          let q = (a[0] == "1") ? -1 : 1;
+          console.log(trans_bin(pc).substring(1));
+          let answer = trans_bin(q * pc) + " " + a.substring(2, a.indexOf(",")) + a.substring(a.indexOf(",")+1);
+          return answer.substring(0, 128);
+        }
+      </script>
+
+      <script>
+        function foo7(){
+          const x = document.querySelector('#answer_3');
+          let a = document.querySelector("input[name='num_3']").value;
+          console.log(a);
+          //let b = document.querySelector("input[name='deq_3']").value;
+          trans(a);
+        }
+        function trans(a){
+          let k = 0;
+          let period = 0;
+          for (let i=5; i>=0; i--){
+            period = parseInt(a[i]) * Math.pow(2, 6-i-1) + period;
+          }
+          let p = period - Math.pow(2, 4) + 1;
+          console.log(p);
+          let q = "1" + a.substring(6);
+
+          for (let i = 7; i>=0; i++){
+
+          }
+          // if (sys == "16"){
+          //   for (let i = a.length - 1; i>6; i--){
+          //     k = k + Math.pow(2, i);
+          //   }
+          // }
         }
       </script>
     </body>

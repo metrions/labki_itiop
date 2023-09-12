@@ -2,13 +2,23 @@
 
 .otstup{
     position: absolute;
-    top: 150px;
+    top: 100px;
     left: 50px;
 }
 
-.ot{
+.otst_dop{
     position: relative;
-    top: 50px;
+    top: 70px;
+}
+
+.ot{
+    position: absolute;
+    top: 200px;
+}
+
+.ot1{
+    position: absolute;
+    top: 300px;
 }
 
 #first{
@@ -45,8 +55,7 @@
 }
 
 .sdwig{
-    position: relative;
-    left: 10%;
+    position: absolute;
 }
 
 
@@ -90,7 +99,6 @@ input[type="number"]::-webkit-inner-spin-button {
 #equal{
     position: relative;
     top: 25px;
-    left: -10px
 }
 
 #answer_numka_dop{
@@ -98,3 +106,49 @@ input[type="number"]::-webkit-inner-spin-button {
     top: 25px;
 
 }
+
+.otstup_2{
+    position: relative;
+    top: 38px
+}
+
+.otstup_3{
+    position: absolute;
+    top: 450px
+}
+
+.answ2{
+    width: 600px;
+}
+
+#eq{
+    position: relative;
+    left: -33px;
+}
+
+.for_trans{
+    width: 300px;
+}
+
+#eq_3{
+    position: relative;
+    left: 100px;
+}
+
+#deg_3{
+    position: relative;
+    left: 250px;
+    width: 80px;
+}
+
+#answer_3{
+    width: 300px;
+    position: relative;
+    left: 120px;
+}
+
+.otst{
+    position: relative;
+    top: 20px
+}
+
