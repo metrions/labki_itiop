@@ -367,37 +367,28 @@
           let a = document.querySelector("input[name='num_3']").value;
           let b = document.querySelector("input[name='deg_3']").value;
           console.log(a);
-          let c = trans_from_2_to_10(a, 16, 2);
-          c = c.substring(0, c.indexOf(","));
-          c = (c.length % 16 != 0) ? "0" + c : c;
-          console.log(c);
           //let b = document.querySelector("input[name='deq_3']").value;
-          x.value = (c[0] == "1") ? "-" + trans(c, c.length) : trans(c, c.length);
+          x.value = trans(a, b);
         }
 
         function trans(a, b){
           let st = 0;
           switch (b){
-            case 16:
+            case "16":
               st = 5;
               break;
-            case 32:
-              st = 8;
-              break;
-            case 64:
+            case "64":
               st = 11;
               break;
-            case 128:
+            case "128":
               st = 15;
               break;
           }
           
           let k = 0;
           let period = 0;
-          console.log(st);
-          for (let i=st; i>0; i--){
+          for (let i=st; i>=0; i--){
             period = parseInt(a[i]) * Math.pow(2, st-i) + period;
-            console.log(a[i]);
           }
           console.log(period);
           let p = period - Math.pow(2, st-1) + 1;
