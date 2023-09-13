@@ -316,7 +316,7 @@
               z_2 = a_z % 2 + z_2;
               a_z = Math.floor(a_z/2);
             }
-            for (let i=0; i<130 && a_nez != 0.0; i++){
+            for (let i=0; i<130; i++){
               nez_2 = nez_2 + Math.floor(a_nez * 2 / 1);
               a_nez = a_nez * 2 - Math.floor(a_nez * 2 / 1);
             }
@@ -365,29 +365,71 @@
         function foo7(){
           const x = document.querySelector('#answer_3');
           let a = document.querySelector("input[name='num_3']").value;
+          let b = document.querySelector("input[name='deg_3']").value;
           console.log(a);
           //let b = document.querySelector("input[name='deq_3']").value;
-          trans(a);
+          x.value = trans(a, b);
         }
-        function trans(a){
+
+        function trans(a, b){
+          let st = 0;
+          switch (b){
+            case "16":
+              st = 5;
+              break;
+            case "64":
+              st = 11;
+              break;
+            case "128":
+              st = 15;
+              break;
+          }
+          
           let k = 0;
           let period = 0;
-          for (let i=5; i>=0; i--){
-            period = parseInt(a[i]) * Math.pow(2, 6-i-1) + period;
+          for (let i=st; i>=0; i--){
+            period = parseInt(a[i]) * Math.pow(2, st-i) + period;
           }
-          let p = period - Math.pow(2, 4) + 1;
+          console.log(period);
+          let p = period - Math.pow(2, st-1) + 1;
           console.log(p);
-          let q = "1" + a.substring(6);
-
-          for (let i = 7; i>=0; i++){
-
-          }
-          // if (sys == "16"){
-          //   for (let i = a.length - 1; i>6; i--){
-          //     k = k + Math.pow(2, i);
-          //   }
-          // }
+          let q = "1" +a.substring(st+1);
+          q = q.substring(0, p+1) + "," + q.substring(p+1);
+          console.log(trans_from_2_to_10(q, 2, 10));
+          return trans_from_2_to_10(q, 2, 10);
         }
+
+        function trans_from_2_to_10(a, a_d, b_d){
+                let gVar = "0123456789ABCDEF";
+                a_ten = 0;
+                answer = "";
+                let m = a;
+                let k = a.indexOf(",");
+                if (a.indexOf(",") != -1){
+                    m = a.substring(0, a.indexOf(",")) + a.substring(a.indexOf(",")+1);
+                }
+
+                a_st = (a.indexOf(",") != -1) ? (a.indexOf(",") - a.length + 1) : 0;
+                //Логика для вычисления целых чисел
+                for (let i=m.length-1; i>=0; i--){ 
+                    a_ten = gVar.indexOf(m.toString()[i]) * (Math.pow(a_d ,a_st)) + a_ten;
+                    a_st++;
+                }
+                let m_nez = a_ten - Math.floor(a_ten/1);
+                let m_z = Math.floor(a_ten/1);
+
+                while (m_z != 0){
+                    answer = gVar[m_z % b_d] + answer;
+                    m_z = Math.floor(m_z / b_d);
+                }
+                answer = answer + ",";
+                for (let i=0; i<5 || m_nez != 0; i++){
+                    answer = answer + gVar[Math.floor(m_nez * b_d / 1)];
+                    m_nez = m_nez * b_d - Math.floor(m_nez * b_d / 1);
+                }
+                return answer;
+                
+            }
       </script>
     </body>
 </html>
