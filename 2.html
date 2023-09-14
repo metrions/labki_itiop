@@ -110,6 +110,7 @@
       <!-- перевод -->
       <script>
         var d = {
+          "0" : "0000",
           "1" : "0001",
           "2" : "0010",
           "3" : "0011",
@@ -129,11 +130,11 @@
                 let b = document.querySelector("input[name='degree_f_t']").value;
                 switch (b){
                   case "10":
-                    inputElement.value = trans(a);
+                    inputElement.value = trans_m(a);
                     degree.value = "2-10";
                     break;
                   case "2-10":
-                    inputElement.value = reverse_trans(a);
+                    inputElement.value = q_reverse_trans(a);
                     degree.value = "10";
                     break;
                   case "str":
@@ -147,7 +148,7 @@
                 }
             }
 
-        function trans(a){
+        function trans_m(a){
           let answer = "";
           let c = a.toString();
           for (let i=c.length-1; i>=0; i--){
@@ -158,6 +159,7 @@
         }
 
         var d_r = {
+          "0000" : "0",
           "0001" : "1",
           "0010" : "2",
           "0011" : "3",
@@ -169,7 +171,7 @@
           "1001" : "9"
         };
 
-        function reverse_trans(a){
+        function q_reverse_trans(a){
           let c = "";
           for (let i=a.length-1; i>=0; i=i-4){
             let str = "" + a[i-3].toString() + a[i-2] + a[i-1] + a[i];
